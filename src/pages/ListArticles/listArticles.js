@@ -1,21 +1,23 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Pagination, Spin } from 'antd'
+import {  useSelector } from 'react-redux';
+import { Pagination, Spin } from 'antd';
 
-import { addArticles } from '../../store/articles/articlesActions'
-import Article from '../article/article';
+import Article from '../article'
+
+
+//import Article from '../article/article';
 
 import style from './listArticles.module.scss'
 
 const ListArticles = () => {
-  const listArticles = useSelector(state => state.articleReducer.list.articles);
-  
-  const {status} = useSelector(state => state.articleReducer); 
-  const dispatch = useDispatch();
+  const state = useSelector(state => state);
+  const listArticles = useSelector(state => state.articles.articles.articles);
+  const status = useSelector(state => state.articles.status)
+  console.log(state);
+  console.log(status);
   console.log(listArticles);
 
   const onPaginationChange = (page) => {
-    console.log(page)
-    dispatch(addArticles(page));
+    console.log(page);
   }
 
   if (status === 'loading') {
@@ -26,14 +28,14 @@ const ListArticles = () => {
     )
   }
 
-  if (status === 'fullfied') {
+  if (status === 'resolved') {
     const article = listArticles.map(({title, slug, description, tagList, author, createdAt}) => {
       return <Article key={slug} title={title} description={description} 
         tagList = {tagList} author={author} createdAt={createdAt}/>
     })
     return (
       <div>
-        {article} 
+        {article}
         <Pagination defaultCurrent={1} total={80} className={style.pagination} onChange = {(res) =>onPaginationChange(res)}/>
       </div>
     )

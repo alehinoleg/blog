@@ -6,14 +6,14 @@ import SignIn from './pages/signIn';
 import SignUp from './pages/signUp';
 import { Layout } from './components/Layout';
 import ListArticles from './pages/ListArticles';
-import { loadArticles } from './store/articles/articlesActions';
+import { fetchArticles } from './store/articlesSlice';
 
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadArticles())
+    dispatch(fetchArticles());
   }, [])
 
   return (
