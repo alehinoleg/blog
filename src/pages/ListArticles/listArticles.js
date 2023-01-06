@@ -1,6 +1,10 @@
-import {  useSelector } from 'react-redux';
+import {  useSelector, useDispatch } from 'react-redux';
+import React, { useEffect , useState } from 'react';
+import { nanoid } from '@reduxjs/toolkit';
+//import { useEffect } from 'react';
 import { Pagination, Spin } from 'antd';
 
+import { fetchArticles } from '../../store/articlesSlice';
 import Article from '../article'
 
 
@@ -10,15 +14,18 @@ import style from './listArticles.module.scss'
 
 const ListArticles = () => {
   const state = useSelector(state => state);
+  const dispatch = useDispatch();
   const listArticles = useSelector(state => state.articles.articles.articles);
   const status = useSelector(state => state.articles.status)
   console.log(state);
-  console.log(status);
-  console.log(listArticles);
+  const [current, setCurrent] = useState(1);
 
-  const onPaginationChange = (page) => {
-    console.log(page);
-  }
+ 
+
+  useEffect(() => {
+    dispatch(fetchArticles(1));
+  }, [])
+
 
   if (status === 'loading') {
     return (
@@ -27,16 +34,21 @@ const ListArticles = () => {
       </div>
     )
   }
+  /*(res) => dispatch(fetchArticles(res)*/
+  const onPaginationChange = (page) => {
+    dispatch(fetchArticles(page))
+    setCurrent(page);
+  }
 
   if (status === 'resolved') {
-    const article = listArticles.map(({title, slug, description, tagList, author, createdAt}) => {
-      return <Article key={slug} title={title} description={description} 
-        tagList = {tagList} author={author} createdAt={createdAt}/>
+    const article = listArticles.map(({title, slug, description, tagList, author, createdAt, favoritesCount}) => {
+      return <Article key={nanoid()} title={title} description={description} 
+        tagList = {tagList} author={author} createdAt={createdAt} favoritesCount={favoritesCount} slug={slug}/>
     })
     return (
       <div>
         {article}
-        <Pagination defaultCurrent={1} total={80} className={style.pagination} onChange = {(res) =>onPaginationChange(res)}/>
+        <Pagination onChange = {(res) => onPaginationChange(res)} total={10000} className={style.pagination} current = {current}/>
       </div>
     )
   }

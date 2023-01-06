@@ -8,8 +8,8 @@ const Layout = () => {
       <header className={style.header}>
         <Link to="/">Realworld Blog</Link>
         <div className={style.wrapperLink}>
-          <Link to="signin">Sign In</Link>
-          <Link to="signup" className={style.signup}>
+          <Link to="/signin">Sign In</Link>
+          <Link to="/signup" className={style.signup}>
             Sign Up
           </Link>
         </div>

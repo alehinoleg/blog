@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 
 import style from './signIn.module.scss'
 
@@ -18,7 +20,7 @@ const SignIn = () => {
             name="contact" placeholder="Password" className={style.inputText}/>
         </div>
         <input type='submit' value='Login' className={style.submit}/>
-        <p className={style.p}>Don’t have an account? Sign Up.</p>
+        <p className={style.p}>Don’t have an account? <Link to="/signup">Sign Up</Link>.</p>
       </form>
     </div>
   )
