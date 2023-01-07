@@ -2,7 +2,7 @@ import {  useSelector, useDispatch } from 'react-redux';
 import React, { useEffect , useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 //import { useEffect } from 'react';
-import { Pagination, Spin } from 'antd';
+import { Pagination, Spin, Alert } from 'antd';
 
 import { fetchArticles } from '../../store/articlesSlice';
 import Article from '../article'
@@ -15,8 +15,9 @@ import style from './listArticles.module.scss'
 const ListArticles = () => {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
-  const listArticles = useSelector(state => state.articles.articles.articles);
-  const status = useSelector(state => state.articles.status)
+  const listArticles =  state.articles.articles.articles;
+  const {status, error } =  state.articles
+  
   console.log(state);
   const [current, setCurrent] = useState(1);
 
@@ -34,7 +35,20 @@ const ListArticles = () => {
       </div>
     )
   }
-  /*(res) => dispatch(fetchArticles(res)*/
+
+  if (status === 'rejected') {
+    return (
+      <div className={style.error}>
+        <Alert
+          message="Error"
+          description = {error}
+          type="error"
+          showIcon
+        />
+      </div>
+    )
+  }
+
   const onPaginationChange = (page) => {
     dispatch(fetchArticles(page))
     setCurrent(page);

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Spin } from 'antd';
+import { Spin, Alert } from 'antd';
 import { nanoid } from '@reduxjs/toolkit';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,14 +15,26 @@ const ArticleFull = () => {
   const smth = useParams();
   const article = useSelector(state => state.article);
   const dispatch = useDispatch();
+  const {status, error} = article;
 
   useEffect(() => {
     dispatch(fetchArticle(smth));
   }, []);
   
-  //console.log(article.status);
+  if (status === 'rejected') {
+    return (
+      <div className={style.error}>
+        <Alert
+          message="Error"
+          description = {error}
+          type="error"
+          showIcon
+        />
+      </div>
+    )
+  }
 
-  if (article.status === 'loading') {
+  if (status === 'loading') {
     return (
       <div className={style.spin}>
         <Spin size='large'/>
@@ -30,7 +42,7 @@ const ArticleFull = () => {
     )
   }
 
-  if (article.status === 'resolved') {
+  if (status === 'resolved') {
   
     console.log(article.article.author.username);
     const {title, favoritesCount, description, createdAt, tagList, body} = article.article;

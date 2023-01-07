@@ -2,12 +2,18 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchArticle = createAsyncThunk(
   'article/fetchArticle',
-  async function(slug) {
-    console.log(slug);
-    const response = await fetch(`https://blog.kata.academy/api/articles/${slug.slug}`);
-    const data = await response.json();
-    console.log(data);
-    return data;
+  async function(slug, {rejectWithValue}) {
+    try{
+      const response = await fetch(`https://blog.kata.academy/api/articles/${slug.slug}`);
+      if (!response.ok) {
+        throw new Error('Server Error!');
+      }
+      const data = await response.json();
+      return data;
+    } catch(error) {
+      return rejectWithValue(error.message);
+    }
+    
   }
 );
 
@@ -31,7 +37,10 @@ const articleSlice = createSlice({
       state.article = action.payload.article;
       state.status = 'resolved';
     },
-    [fetchArticle.rejected]: () => {},
+    [fetchArticle.rejected]: (state, action) => {
+      state.status = 'rejected';
+      state.error = action.payload;
+    },
   }
 });
 
