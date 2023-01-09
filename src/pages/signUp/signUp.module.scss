@@ -20,15 +20,6 @@
   margin-top: 40px;
 }
 
-.title {
-  font-style: normal;
-  font-size: 20px;
-  line-height: 28px;
-  text-align: center;
-  color: #262626;
-  margin-top: 40px;
-}
-
 .label {
   font-size: 14px;
   line-height: 22px;
@@ -44,7 +35,12 @@
   padding: 8px 12px;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
-  margin-bottom: 12px;
+}
+
+.inputTextError {
+  padding: 8px 12px;
+  border: 1px solid #f10000;
+  border-radius: 4px;
 }
 
 ::placeholder {
@@ -56,7 +52,7 @@
 .blockCheckbox {
   display: flex;
   align-items: center;
-  margin: 23px 0;
+  margin-top: 23px;
 }
 
 .checkbox {
@@ -92,4 +88,15 @@
   text-align: center;
   color: #8c8c8c;
   text-align: center;
+}
+
+.errorsBlock {
+  height: 18px;
+}
+
+.errors {
+  font-size: 14px;
+  line-height: 22px;
+  color: #f5222d;
+  margin: 0;
 }

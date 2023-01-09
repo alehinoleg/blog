@@ -12,6 +12,9 @@ const Layout = () => {
           <Link to="/signup" className={style.signup}>
             Sign Up
           </Link>
+          <Link to="/editprofile" className={style.signup}>
+            Edit Profile
+          </Link>
         </div>
       </header>
       <Outlet />

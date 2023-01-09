@@ -7,6 +7,7 @@ import SignUp from './pages/signUp';
 import ArticleFull from './pages/articleFull';
 import { Layout } from './components/Layout';
 import ListArticles from './pages/ListArticles';
+import EditProfile from './pages/editProfile';
 
 
 
@@ -19,6 +20,7 @@ function App() {
         <Route index element={<ListArticles/>}/>
         <Route path='signin' element={<SignIn/>}/>
         <Route path='signup' element={<SignUp/>}/>
+        <Route path='editprofile' element={<EditProfile/>}/>
         <Route path='/articles/:slug' element={<ArticleFull />}/>
       </Route>
     </Routes>
