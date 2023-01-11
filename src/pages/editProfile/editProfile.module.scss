@@ -36,3 +36,79 @@
   border: 1px solid #d9d9d9;
   border-radius: 4px;
 }
+
+.inputTextError {
+  padding: 8px 12px;
+  border: 1px solid #f10000;
+  border-radius: 4px;
+}
+
+::placeholder {
+  color: #bfbfbf;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.blockCheckbox {
+  display: flex;
+  align-items: center;
+  margin-top: 23px;
+}
+
+.checkbox {
+  margin-right: 10px;
+  margin-top: 4px;
+  align-self: flex-start;
+}
+
+.blockCheckbox .label {
+  display: block;
+  width: 300px;
+}
+
+.submit {
+  width: 100%;
+  border: none;
+  background: #1890ff;
+  border-radius: 4px;
+  padding: 8px 0;
+  color: #fff;
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 15px;
+}
+
+.submit:hover {
+  background: #55adff;
+}
+
+.p {
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  color: #8c8c8c;
+  text-align: center;
+}
+
+.errorsBlock {
+  height: 18px;
+}
+
+.errors {
+  font-size: 14px;
+  line-height: 22px;
+  color: #f5222d;
+  margin: 0;
+}
+
+.fileInput {
+}
+
+.urlImg {
+  color: #bfbfbf;
+  font-size: 18px;
+  line-height: 24px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 7px 10px;
+}

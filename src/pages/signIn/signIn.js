@@ -1,11 +1,16 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
+//import { fetchArticles } from '../../store/articlesSlice';
+import { fetchSignIn } from '../../store/SignInSlice';
 
 import style from './signIn.module.scss'
 
 const SignIn = () => {
+  const dispatch = useDispatch() 
+  const navigate = useNavigate();
   const {
     register,
     formState: {
@@ -15,8 +20,14 @@ const SignIn = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    alert(JSON.stringify(data));
+    const userData = {
+      user: {
+        email: data.emailAddress,
+        password: data.password,
+      }
+    }
+    dispatch(fetchSignIn(userData));
+    navigate('/');
   }
 
   return (

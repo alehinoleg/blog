@@ -27,7 +27,9 @@ const ListArticles = () => {
     dispatch(fetchArticles(1));
   }, [])
 
-
+  /*{status === 'loading' && <div className={style.spin}>
+    <Spin size='large'/>
+  </div>}*/
   if (status === 'loading') {
     return (
       <div className={style.spin}>

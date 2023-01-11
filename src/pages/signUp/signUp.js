@@ -1,10 +1,14 @@
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { fetchRegistration } from '../../store/registration';
 
 import style from './signUp.module.scss'
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const {
     register,
     formState: {
@@ -16,9 +20,15 @@ const SignUp = () => {
   const password = useRef({});
   password.current = watch('password', '');
 
-  const onSubmit = async data => {
-    console.log(data);
-    alert(JSON.stringify(data));
+  const onSubmit = (data) => {
+    const userData = {
+      user: {
+        username: data.username,
+        email: data.emailAddress,
+        password: data.password,
+      }
+    }
+    dispatch(fetchRegistration(userData));
   }
 
   return (
