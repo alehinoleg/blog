@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { fetchRegistration } from '../../store/registration';
+import { fetchRegistration } from '../../store/fetchRegistration';
 
 import style from './signUp.module.scss'
 

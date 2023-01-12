@@ -1,0 +1,55 @@
+.block {
+  width: 938px;
+  height: Hug (701px);
+  background-color: #fff;
+  margin: 0 auto;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0px 22px 106px rgba(0, 0, 0, 0.07), 0px 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198),
+    0px 4.91399px 23.6765px rgba(0, 0, 0, 0.0417275), 0px 2.75474px 13.2728px rgba(0, 0, 0, 0.035),
+    0px 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
+  border-radius: 6px;
+  padding: 32px;
+}
+
+.title {
+  font-style: normal;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  color: #262626;
+  margin-top: 40px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  line-height: 22px;
+  color: #262626;
+}
+
+.errors {
+  font-size: 14px;
+  line-height: 22px;
+  color: #f5222d;
+  margin: 0;
+}
+
+.errorsBlock {
+  height: 18px;
+}
+
+.inputText {
+  padding: 8px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+}
+
+.inputTextError {
+  padding: 8px 12px;
+  border: 1px solid #f10000;
+  border-radius: 4px;
+}

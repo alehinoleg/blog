@@ -1,9 +1,15 @@
 import React, {useRef} from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { fetchEditProfile } from '../../store/fetchEditProfile';
 
 import style from './editProfile.module.scss'
 
 const EditProfile = () => {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  const token = state.userActions.user.token;
   const {
     register,
     formState: {
@@ -16,16 +22,17 @@ const EditProfile = () => {
   password.current = watch('password', '');
 
   const onSubmit = (data) => {
-    console.log(data);
-    /*const userData = {
+    const userData = {
       user: {
         email: data.emailAddress,
         password: data.password,
         username: data.username,
         bio: '',
-        image: data.avatar,        
+        image: data.avatar,
+        token: token,        
       }
-    }*/
+    }
+    dispatch(fetchEditProfile(userData));
   }
 
   return(

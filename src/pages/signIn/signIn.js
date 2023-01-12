@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 //import { fetchArticles } from '../../store/articlesSlice';
-import { fetchSignIn } from '../../store/SignInSlice';
+import { fetchSignIn } from '../../store/fetchSignIn';
 
 import style from './signIn.module.scss'
 

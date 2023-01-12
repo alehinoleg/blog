@@ -31,3 +31,29 @@ header a {
   justify-content: space-between;
   align-items: center;
 }
+
+.wrapperLinkAvtUser {
+  width: 35%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ava {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  padding: 0 10px;
+}
+
+.Avatar {
+  margin: 0 10px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 170px;
+  flex-grow: 1;
+}
