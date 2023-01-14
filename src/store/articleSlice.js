@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const fetchArticle = createAsyncThunk(
   'article/fetchArticle',
   async function(slug, {rejectWithValue}) {
+    console.log(slug)
     try{
       const response = await fetch(`https://blog.kata.academy/api/articles/${slug.slug}`);
       if (!response.ok) {

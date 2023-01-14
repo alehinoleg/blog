@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchAddArticle = createAsyncThunk(
-  'AddArticle/fetchAddArticle',
+export const fetchDeleteArticle = createAsyncThunk(
+  'deleteArticle/fetchDeleteArticle',
   async function(userData, {rejectWithValue}) {
     try{
-      const response = await fetch('https://blog.kata.academy/api/articles', {
-        method: 'POST',
+      const response = await fetch(`https://blog.kata.academy/api/articles/${userData.slug}`, {
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
           'Authorization': `Bearer ${userData.token}`,

@@ -46,12 +46,15 @@
 }
 
 .info {
-  width: 660px;
+  width: 600px;
 }
 
 .infoAuthor {
   display: flex;
-  margin-left: 70px;
+  flex-wrap: wrap;
+  width: 151px;
+  justify-content: center;
+  height: 75px;
 }
 
 .author {
@@ -91,4 +94,27 @@
   position: fixed;
   top: 50%;
   left: 50%;
+}
+
+.wrapperButton {
+  display: flex;
+  justify-content: space-between;
+  width: 140px;
+  margin-top: 20px;
+}
+
+.delete {
+  font-size: 14px;
+  color: #f5222d;
+  border: 1px solid #f5222d;
+  border-radius: 5px;
+  padding: 5px 12px;
+}
+
+.edit {
+  font-size: 14px;
+  color: #52c41a;
+  border: 1px solid #52c41a;
+  border-radius: 5px;
+  padding: 5px 12px;
 }
