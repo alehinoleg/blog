@@ -1,18 +1,44 @@
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 
-import style from './createArticle.module.scss'
+import { fetchAddArticle } from '../../store/fetchAddArticle';
+
+import style from './createArticle.module.scss';
 
 const CreateArticle = () => {
+  const dispatch = useDispatch();
+  const state = useSelector(state => state);
+  const token = state.userActions.user.token;
   const {
     register,
     formState: {
       errors,
     },
     handleSubmit,
-  } = useForm();
+    control
+  } = useForm({
+    defaultValues: {
+      tagList: [' ']
+    },
+  });
+  const { fields, append, remove} = useFieldArray({
+    name: 'tagList',
+    control,
+  })
+
+  const onSubmit = (article) => {
+    const userData = {
+      data: {
+        article
+      },
+      token,
+    }
+    dispatch(fetchAddArticle(userData))
+  }
+
   return (
     <div className={style.block}>
-      <form onSubmit={handleSubmit()}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h2 className={style.title}>Create new article</h2>
         <div className={style.info}>
           <label htmlFor="imput1" className={style.label}>Title</label>
@@ -26,32 +52,44 @@ const CreateArticle = () => {
           </div>
         </div>
         <div className={style.info}>
-          <label htmlFor="imput1" className={style.label}>Short description</label>
-          <input type='text' id="imput1"
-            placeholder="short description" className={errors?.shortdescription?style.inputTextError:style.inputText}
-            {...register('shortdescription', 
+          <label htmlFor="imput2" className={style.label}>Short description</label>
+          <input type='text' id="imput2"
+            placeholder="description" className={errors?.description?style.inputTextError:style.inputText}
+            {...register('description', 
               {required: 'Must not be empty'})}
           />
           <div className={style.errorsBlock}>
-            {errors?.shortdescription && <p className={style.errors}>{errors?.shortdescription?.message || 'Error!'}</p>}
+            {errors?.description && <p className={style.errors}>{errors?.description?.message || 'Error!'}</p>}
           </div>
         </div>
         <div className={style.info}>
-          <label htmlFor="imput1" className={style.label}>Text</label>
-          <textarea id="imput1"
-            placeholder="short description" className={errors?.shortdescription?style.inputTextError:style.inputText}
-            {...register('shortdescription', 
+          <label htmlFor="imput3" className={style.label}>Text</label>
+          <textarea id="imput3" rows='15'
+            placeholder="text" className={errors?.body?style.inputTextError:style.inputText}
+            {...register('body', 
               {required: 'Must not be empty'})}
           />
           <div className={style.errorsBlock}>
-            {errors?.shortdescription && <p className={style.errors}>{errors?.shortdescription?.message || 'Error!'}</p>}
+            {errors?.body && <p className={style.errors}>{errors?.body?.message || 'Error!'}</p>}
           </div>
         </div>
-        <div>
-          <div>
-                
-          </div>
+        
+        <div className={style.wrapperS} >
+          <label htmlFor="imput4" className={style.label}>Tags</label>
+          <div className={style.wrapperTeg}>
+            
+            {fields.map((field, index) => {
+              return <section key={field.id} className={style.sectionTag}>
+                <input {...register(`tagList.${index}`)} className={style.inputText} placeholder='tag'/>
+                <button type='button' onClick={() => remove(index)} className={style.delete}>Delete</button>
+              </section>
+            })}
+            <button type='button' onClick={() => {
+              append('');
+            }} className={style.addTag}>Add tag</button>
+          </div> 
         </div>
+        <input type='submit' value='Send' className={style.submit}/>
       </form>
     </div>
   )

@@ -3,8 +3,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 export const fetchEditProfile = createAsyncThunk(
   'editProfile/fetchEditProfile',
   async function(userData, {rejectWithValue}) {
-    console.log(JSON.stringify(userData));
-    console.log(userData.user.token);
     try{
       const response = await fetch('https://blog.kata.academy/api/user', {
         method: 'PUT',
@@ -18,7 +16,6 @@ export const fetchEditProfile = createAsyncThunk(
         throw new Error('Не удачное изменение профиля');
       }
       const data = await response.json();
-      console.log(data);
       return data;
     } catch(error) {
       return rejectWithValue(error.message);
