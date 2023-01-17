@@ -7,14 +7,17 @@ import { fetchEditProfile } from './fetchEditProfile';
 const userActionsSlice = createSlice({
   name: 'userActionsSlice',
   initialState: {
-    user: {},
+    user: null,
     status: null,
     error: null,
   },
   reducers: {
     exitUser(state) {
       console.log(state);
-      state.user = {};
+      state.user = null;
+    },
+    bbb(state, action) {
+      state.user = action.payload;
     }
   },
   extraReducers: {
@@ -32,7 +35,6 @@ const userActionsSlice = createSlice({
       state.error = action.payload;
     },
     [fetchSignIn.fulfilled]: (state, action) => {
-      console.log(action.payload.user);
       state.user = action.payload.user;
       state.status = 'resolved';
     },
@@ -44,5 +46,5 @@ const userActionsSlice = createSlice({
   }
 });
   
-export const {exitUser} = userActionsSlice.actions;
+export const {exitUser, bbb} = userActionsSlice.actions;
 export default userActionsSlice.reducer;

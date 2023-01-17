@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { fetchRegistration } from '../../store/fetchRegistration';
@@ -9,6 +9,7 @@ import style from './signUp.module.scss'
 
 const SignUp = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     formState: {
@@ -29,6 +30,7 @@ const SignUp = () => {
       }
     }
     dispatch(fetchRegistration(userData));
+    navigate('/');
   }
 
   return (

@@ -50,7 +50,6 @@
 
 .infoAuthor {
   display: flex;
-  margin-left: 70px;
 }
 
 .author {
@@ -75,4 +74,16 @@
   width: 46px;
   height: 46px;
   border-radius: 50%;
+}
+
+.tagWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.like {
+  padding: 0;
+  height: 15px;
+  border: none;
+  background-color: #fff;
 }

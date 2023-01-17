@@ -1,16 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-//import { fetchArticles } from '../../store/articlesSlice';
 import { fetchSignIn } from '../../store/fetchSignIn';
 
-import style from './signIn.module.scss'
+import style from './signIn.module.scss';
+
+export function useLocalStorage(initialValue, key) {
+  const geValue = () => {
+    const value = localStorage.getItem(key);
+    if (value) {
+      return JSON.parse(value);
+    }
+    return initialValue;
+  };
+
+  const [storage, setStorage] = useState(geValue);
+  console.log(storage);
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(storage));
+  }, [storage]);
+
+  return { storage, setStorage };
+}
 
 const SignIn = () => {
-  const dispatch = useDispatch() 
-  const navigate = useNavigate();
+  const state = useSelector(state => state);
+  //const user = state.userActions.user
+  const { setStorage } = useLocalStorage(null, 'user');
+  const dispatch = useDispatch();
+  //const navigate = useNavigate();
+  
   const {
     register,
     formState: {
@@ -26,9 +47,16 @@ const SignIn = () => {
         password: data.password,
       }
     }
-    dispatch(fetchSignIn(userData));
-    navigate('/');
+    dispatch(fetchSignIn(userData)); 
   }
+
+  useEffect(() => {
+    if (state.userActions.user) {
+      console.log(state.userActions.user)
+      setStorage(() => ({ ...state.userActions.user }));
+    }
+  },[state.userActions.user]) 
+  
 
   return (
     <div className={style.block}>

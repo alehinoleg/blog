@@ -1,21 +1,36 @@
+import React, { useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { exitUser } from '../store/userActions.js';
+import { exitUser, bbb } from '../store/userActions.js';
 import Avatar from '../img/avatar.js';
+import { useLocalStorage } from '../pages/signIn/signIn.js';
 
 import style from './layout.module.scss';
 
 const Layout = () => {
   const state = useSelector((state) => state);
+  const { storage } = useLocalStorage(null, 'user');
   const dispatch = useDispatch();
-  const tokenUser = state.userActions.user.token;
-  const userName = state.userActions.user.username;
-  const ava = state.userActions.user.image;
-  console.log(state);
-  const exetUser = () => dispatch(exitUser());
+  //const user = state.userActions.user;
+  const tokenUser = state.userActions.user?.token;
+  const userName = state.userActions.user?.username;
+  const ava = state.userActions.user?.image;
+  const exetUser = () => {
+    dispatch(exitUser());
+    localStorage.removeItem('user');
+  };
+
+  useEffect(() => {
+    if (storage) {
+      //signIn(storage);
+      console.log(storage);
+      dispatch(bbb(storage));
+    }
+  }, [storage]);
 
   if (tokenUser) {
+    //setStorage(() => user);
     return (
       <>
         <header className={style.header}>

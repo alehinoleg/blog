@@ -1,5 +1,6 @@
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { fetchAddArticle } from '../../store/fetchAddArticle';
 
@@ -7,8 +8,9 @@ import style from './createArticle.module.scss';
 
 const CreateArticle = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const state = useSelector(state => state);
-  const token = state.userActions.user.token;
+  const token = state.userActions.user?.token;
   const {
     register,
     formState: {
@@ -33,7 +35,8 @@ const CreateArticle = () => {
       },
       token,
     }
-    dispatch(fetchAddArticle(userData))
+    dispatch(fetchAddArticle(userData));
+    navigate('/');
   }
 
   return (

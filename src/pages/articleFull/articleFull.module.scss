@@ -1,14 +1,16 @@
-.post {
+.wraperPost {
   background-color: white;
   width: 941px;
   border-radius: 2px;
   margin: 0 auto;
-  display: flex;
   box-sizing: border-box;
   padding: 15px;
   margin-bottom: 26px;
+}
+
+.post {
+  display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
 }
 
 .blokTitle {
@@ -46,7 +48,7 @@
 }
 
 .info {
-  width: 600px;
+  width: 680px;
 }
 
 .infoAuthor {
@@ -117,4 +119,26 @@
   border: 1px solid #52c41a;
   border-radius: 5px;
   padding: 5px 12px;
+}
+
+.modal {
+  display: flex;
+  align-items: center;
+}
+
+.modalp {
+  margin: 0;
+  margin-left: 10px;
+}
+
+.antModalContent {
+  left: 525px !important;
+  width: 277px !important;
+  top: 175px !important;
+}
+
+:global .ant-modal-content {
+  left: 633px !important;
+  width: 210px !important;
+  top: 75px !important;
 }

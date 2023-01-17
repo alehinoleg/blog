@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+import { fetchfavoriteTrue } from './fetchfavoriteTrue';
+
 export const fetchArticle = createAsyncThunk(
   'article/fetchArticle',
   async function(slug, {rejectWithValue}) {
@@ -34,13 +36,17 @@ const articleSlice = createSlice({
       state.error = null;
     },
     [fetchArticle.fulfilled]: (state, action) => {
-      console.log(action.payload.article);
       state.article = action.payload.article;
       state.status = 'resolved';
     },
     [fetchArticle.rejected]: (state, action) => {
       state.status = 'rejected';
       state.error = action.payload;
+    },
+    [fetchfavoriteTrue.fulfilled]: (state, action) => {
+      console.log(action.payload);
+      state.article = action.payload.article;
+      state.status = 'resolved';
     },
   }
 });

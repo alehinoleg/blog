@@ -9,7 +9,7 @@ import style from './editProfile.module.scss'
 const EditProfile = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  const token = state.userActions.user.token;
+  const token = state.userActions.user?.token;
   const {
     register,
     formState: {
