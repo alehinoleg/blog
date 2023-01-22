@@ -1,24 +1,25 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchfavoriteTrue = createAsyncThunk(
-  'favoriteTrue/fetchfavoriteTrue',
+export const fetchUpdateArticle = createAsyncThunk(
+  'UpdateArticle/fetchUpdateArticle',
   async function(userData, {rejectWithValue}) {
+    console.log(userData);
     try{
-      const response = await fetch(`https://blog.kata.academy/api/articles/${userData.slug}/favorite`, {
-        method: 'POST',
+      const response = await fetch(`https://blog.kata.academy/api/articles/${userData.slug}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
           'Authorization': `Bearer ${userData.token}`,
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(userData.data),
       });
       if (!response.ok) {
-        throw new Error('Регистрация не удачна');
+        throw new Error('Server Error!');
       }
       const data = await response.json();
       return data;
     } catch(error) {
       return rejectWithValue(error.message);
-    }
+    } 
   }
 );

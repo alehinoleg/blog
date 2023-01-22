@@ -4,7 +4,7 @@ import { nanoid } from '@reduxjs/toolkit';
 //import { useEffect } from 'react';
 import { Pagination, Spin, Alert } from 'antd';
 
-import { fetchArticles } from '../../store/articlesSlice';
+import { fetchArticles, fetchArticlesToken } from '../../store/articlesSlice';
 import Article from '../article'
 
 
@@ -14,22 +14,28 @@ import style from './listArticles.module.scss'
 
 const ListArticles = () => {
   const state = useSelector(state => state);
+  const token = state.userActions.user?.token;
+  const slagState = state.article.article?.slug;
   const dispatch = useDispatch();
   const listArticles =  state.articles.articles.articles;
   const {status, error } =  state.articles
-  
-  console.log(state);
   const [current, setCurrent] = useState(1);
-
- 
-
+  console.log(state);
+  
   useEffect(() => {
-    dispatch(fetchArticles(1));
-  }, [])
-
-  /*{status === 'loading' && <div className={style.spin}>
-    <Spin size='large'/>
-  </div>}*/
+    const articlesData = {
+      offset: 1,
+      token,
+    }
+    if (token) {
+      console.log('Сейчас с токеным');
+      dispatch(fetchArticlesToken(articlesData));
+    } else {
+      console.log('Сейчас без токеным');
+      dispatch(fetchArticles(articlesData));
+    }
+  }, [token])
+  
   if (status === 'loading') {
     return (
       <div className={style.spin}>
@@ -52,12 +58,27 @@ const ListArticles = () => {
   }
 
   const onPaginationChange = (page) => {
-    dispatch(fetchArticles(page))
+    const articlesData = {
+      offset: page,
+      token,
+    }
+    if (token) {
+      console.log('Сейчас с токеным');
+      dispatch(fetchArticlesToken(articlesData));
+    } else {
+      console.log('Сейчас без токеным');
+      dispatch(fetchArticles(articlesData));
+    }
     setCurrent(page);
   }
 
   if (status === 'resolved') {
-    const article = listArticles.map(({title, slug, description, tagList, author, createdAt, favoritesCount}) => {
+    const article = listArticles.map(({title, slug, description, tagList, author, createdAt, favoritesCount}, index) => {
+      if (slagState === slug) {
+        console.log(index, 'index');
+        return <Article key={nanoid()} title={title} description={description} 
+          tagList = {tagList} author={author} createdAt={createdAt} favoritesCount={favoritesCount + 1} slug={slug}/>
+      }
       return <Article key={nanoid()} title={title} description={description} 
         tagList = {tagList} author={author} createdAt={createdAt} favoritesCount={favoritesCount} slug={slug}/>
     })

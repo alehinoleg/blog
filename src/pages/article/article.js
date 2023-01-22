@@ -5,13 +5,17 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchfavoriteTrue } from '../../store/fetchfavoriteTrue'; 
 import Like from '../like/like';
+import { fcStates } from '../../store/articlesSlice';
 
 import style from './article.module.scss'
 
 const Article = (props) => {
   const dispatch = useDispatch();
   const state = useSelector(state => state);
-  const token = state.userActions.user.token;
+  const article = state.article.article
+  //const fcState = state.article.article?.favorited;
+  //console.log(fcState);
+  const token = state.userActions.user?.token;
   const {title, description, tagList, author, createdAt, favoritesCount, slug} = props;
   const tag = tagList.map((tag) => {
     return (
@@ -25,8 +29,9 @@ const Article = (props) => {
       slug
     }
     dispatch(fetchfavoriteTrue(userData))
+    dispatch(fcStates(article))
   }
- 
+  
   return (
     <div className={style.post}>
       <div className={style.info}>

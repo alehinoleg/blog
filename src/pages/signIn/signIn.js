@@ -17,7 +17,6 @@ export function useLocalStorage(initialValue, key) {
   };
 
   const [storage, setStorage] = useState(geValue);
-  console.log(storage);
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(storage));
   }, [storage]);
@@ -85,7 +84,7 @@ const SignIn = () => {
                 message: 'minimum 6 characters'
               }
             })} id="imput2" 
-          placeholder="Password" className={errors?.password?style.inputTextError:style.inputText}/>
+          placeholder="Password" className={errors?.password?style.inputTextError:style.inputText} type='password'/>
           <div className={style.errorsBlock}>
             {errors?.password && <p className={style.errors}>{errors?.password?.message || 'Error!'}</p>}
           </div>

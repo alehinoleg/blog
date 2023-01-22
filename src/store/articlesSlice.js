@@ -2,9 +2,35 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchArticles = createAsyncThunk(
   'articles/fetchArticles',
-  async function(offset = 1, {rejectWithValue}) {
+  async function(articlesData, {rejectWithValue}) {
+    console.log(articlesData);
     try{
-      const response = await fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${(offset - 1) * 5}`);
+      const response = await fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${(articlesData.offset - 1) * 5}`);
+      if (!response.ok) {
+        throw new Error('Server Error!');
+      }
+      const data = await response.json();
+      return data;
+    } catch(error) {
+      return rejectWithValue(error.message);
+    }
+    
+  }
+);
+
+export const fetchArticlesToken = createAsyncThunk(
+  'articles/fetchArticles',
+  async function(articlesData, {rejectWithValue}) {
+    console.log(articlesData);
+    try{
+      const response = await fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${(articlesData.offset - 1) * 5}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          'Authorization': `Bearer ${articlesData.token}`,
+        },
+        //body: JSON.stringify(articlesData),
+      });
       if (!response.ok) {
         throw new Error('Server Error!');
       }
@@ -24,7 +50,13 @@ const articlesSlice = createSlice({
     status: null,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    fcStates(state, action) {
+      console.log(action.payload);
+      console.log(state.articles)
+      state.articles = state.articles.map(ar => ar.slug === action.payload.slug ? {... action.payload } : ar)
+    }
+  },
   extraReducers: {
     [fetchArticles.pending]: (state) => {
       state.status = 'loading';
@@ -38,7 +70,16 @@ const articlesSlice = createSlice({
       state.status = 'rejected';
       state.error = action.payload;
     },
+    [fetchArticlesToken.fulfilled]: (state, action) => {
+      state.status = 'resolved';
+      state.articles = action.payload;
+    },
+    [fetchArticlesToken.rejected]: (state, action) => {
+      state.status = 'rejected';
+      state.error = action.payload;
+    },
   }
 });
 
+export const {fcStates} = articlesSlice.actions;
 export default articlesSlice.reducer;

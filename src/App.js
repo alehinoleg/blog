@@ -24,6 +24,7 @@ function App() {
         <Route path='editprofile' element={<EditProfile/>}/>
         <Route path='/articles/:slug' element={<ArticleFull />}/>
         <Route path='new-article' element={<CreateArticle />}/>
+        <Route path='/articles/:slug/:edit' element={<CreateArticle />}/>
       </Route>
     </Routes>
   );

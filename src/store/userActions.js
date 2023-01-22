@@ -13,9 +13,9 @@ const userActionsSlice = createSlice({
   },
   reducers: {
     exitUser(state) {
-      console.log(state);
       state.user = null;
     },
+    
     bbb(state, action) {
       state.user = action.payload;
     }

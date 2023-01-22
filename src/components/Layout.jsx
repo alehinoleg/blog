@@ -24,7 +24,6 @@ const Layout = () => {
   useEffect(() => {
     if (storage) {
       //signIn(storage);
-      console.log(storage);
       dispatch(bbb(storage));
     }
   }, [storage]);

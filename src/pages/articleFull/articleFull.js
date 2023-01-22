@@ -17,6 +17,16 @@ import style from './articleFull.module.scss';
 
 const ArticleFull = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const article = useSelector(state => state.article);
+  const slug = article.article.slug;
+  const navigate = useNavigate();
+  const userNamestate = useSelector(state => state.userActions);
+  const token = userNamestate.user?.token;
+  const dispatch = useDispatch();
+  const {status, error} = article;
+  console.log(article);
+ 
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -36,13 +46,10 @@ const ArticleFull = () => {
   useEffect(() => {
     dispatch(fetchArticle(smth));
   }, []);
-  const article = useSelector(state => state.article);
-  const navigate = useNavigate();
-  console.log(article);
-  const userNamestate = useSelector(state => state.userActions);
-  const token = userNamestate.user?.token;
-  const dispatch = useDispatch();
-  const {status, error} = article;
+
+  const onEdit = () => {
+    navigate(`/articles/${slug}/edit`);
+  }
   
   if (status === 'rejected') {
     return (
@@ -66,7 +73,6 @@ const ArticleFull = () => {
   }
 
   if (status === 'resolved') {
-    console.log(article.article);
     const {title, favoritesCount, description, createdAt, tagList, body} = article.article;
     const author = article.article.author.username;
     const img = article.article.author.image;
@@ -109,7 +115,7 @@ const ArticleFull = () => {
                   </div>
                 </Modal>
           
-                <button className={style.edit}>Edit</button>
+                <button className={style.edit} onClick={onEdit}>Edit</button>
               </section>
             </div>
             
