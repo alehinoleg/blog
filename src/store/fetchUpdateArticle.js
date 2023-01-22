@@ -3,7 +3,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 export const fetchUpdateArticle = createAsyncThunk(
   'UpdateArticle/fetchUpdateArticle',
   async function(userData, {rejectWithValue}) {
-    console.log(userData);
     try{
       const response = await fetch(`https://blog.kata.academy/api/articles/${userData.slug}`, {
         method: 'PUT',

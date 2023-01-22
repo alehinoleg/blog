@@ -51,7 +51,6 @@ const SignIn = () => {
 
   useEffect(() => {
     if (state.userActions.user) {
-      console.log(state.userActions.user)
       setStorage(() => ({ ...state.userActions.user }));
     }
   },[state.userActions.user]) 

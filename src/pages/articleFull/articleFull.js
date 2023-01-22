@@ -24,8 +24,6 @@ const ArticleFull = () => {
   const token = userNamestate.user?.token;
   const dispatch = useDispatch();
   const {status, error} = article;
-  console.log(article);
- 
 
   const showModal = () => {
     setIsModalOpen(true);

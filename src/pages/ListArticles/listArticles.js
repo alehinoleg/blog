@@ -20,7 +20,6 @@ const ListArticles = () => {
   const listArticles =  state.articles.articles.articles;
   const {status, error } =  state.articles
   const [current, setCurrent] = useState(1);
-  console.log(state);
   
   useEffect(() => {
     const articlesData = {
@@ -28,10 +27,8 @@ const ListArticles = () => {
       token,
     }
     if (token) {
-      console.log('Сейчас с токеным');
       dispatch(fetchArticlesToken(articlesData));
     } else {
-      console.log('Сейчас без токеным');
       dispatch(fetchArticles(articlesData));
     }
   }, [token])
@@ -63,19 +60,16 @@ const ListArticles = () => {
       token,
     }
     if (token) {
-      console.log('Сейчас с токеным');
       dispatch(fetchArticlesToken(articlesData));
     } else {
-      console.log('Сейчас без токеным');
       dispatch(fetchArticles(articlesData));
     }
     setCurrent(page);
   }
 
   if (status === 'resolved') {
-    const article = listArticles.map(({title, slug, description, tagList, author, createdAt, favoritesCount}, index) => {
+    const article = listArticles.map(({title, slug, description, tagList, author, createdAt, favoritesCount}) => {
       if (slagState === slug) {
-        console.log(index, 'index');
         return <Article key={nanoid()} title={title} description={description} 
           tagList = {tagList} author={author} createdAt={createdAt} favoritesCount={favoritesCount + 1} slug={slug}/>
       }

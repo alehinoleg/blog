@@ -15,7 +15,7 @@ const CreateArticle = () => {
   const params = useParams();
   const article = state.article.article;
   const slug = article.slug;
-  console.log(article);
+  
   const {
     register,
     formState: {

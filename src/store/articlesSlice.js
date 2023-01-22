@@ -3,7 +3,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const fetchArticles = createAsyncThunk(
   'articles/fetchArticles',
   async function(articlesData, {rejectWithValue}) {
-    console.log(articlesData);
     try{
       const response = await fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${(articlesData.offset - 1) * 5}`);
       if (!response.ok) {
@@ -21,7 +20,6 @@ export const fetchArticles = createAsyncThunk(
 export const fetchArticlesToken = createAsyncThunk(
   'articles/fetchArticles',
   async function(articlesData, {rejectWithValue}) {
-    console.log(articlesData);
     try{
       const response = await fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${(articlesData.offset - 1) * 5}`, {
         method: 'GET',
